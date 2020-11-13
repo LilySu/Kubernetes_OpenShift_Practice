@@ -1,0 +1,69 @@
+Follow:
+https://computingforgeeks.com/how-to-run-arch-linux-on-windows-wsl/
+https://www.reddit.com/r/ManjaroLinux/comments/iu1mxb/manjaro_running_on_wsl_2_windows_subsystem_for/
+
+
+In wsl:
+cd /mnt/c/Users/<openshift-installer-download location>
+
+tar -xzf openshift-install-linux.tar.gz
+
+chmod +x openshift-install
+
+Nameservers:
+ns-1784.awsdns-31.co.uk
+ns-446.awsdns-55.com
+ns-1432.awsdns-51.org
+ns-969.awsdns-57.net
+
+
+Install Zip & UnZip:
+sudo pacman -S zip
+sudo pacman -S Unzip
+
+Install AWS CLI:
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+Set Up AWS:
+https://docs.openshift.com/container-platform/4.6/installing/installing_aws/installing-aws-account.html
+Goal 1 - get Nameservers:
+1. Have a registered domain or subdomain in Route53 (easiest to create a new one)
+2. Create a Public Hosted Zone
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/CreatingHostedZone.html
+3. Save the Nameserver addresses of the Public Hosted Zone
+https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/GetInfoAboutHostedZone.html
+
+Goal 2 - Configure IAM:
+Attach AdministratorAccess
+or partial or full access to the following ie:
+EC2FullAccess
+ElasticLoadBalancerFullAccess
+IAMFullAccess
+S3FullAccess
+
+Request ElasticIP Limit Increase:
+AWS Console > EC2 > Limits > EC2-Classic Elastic IPs > Request limit increase
+From 5 to 6
+
+OR
+
+Change Cluster Region because us-east-1 is limited to 5,
+not the required 6 Elastic IP's for creating the cluster
+./openshift-install create install-config --dir=<your directory to save .yaml>
+nano install-config.yaml
+
+Checks---------------------------------
+Check if the AWS CLI is working:
+aws --version
+
+Get Listener Ports:
+netstat -ab
+ --------------------------------------
+
+Create Cluster from the 'openshift-install' extracted file
+./openshift-install create cluster
+
+Wait 30
+

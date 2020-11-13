@@ -1,0 +1,38 @@
+OpenShift CLI (oc)
+https://www.openshift.com/blog/installing-oc-tools-windows
+
+More Info on basic crc commands:
+https://access.redhat.com/documentation/en-us/red_hat_codeready_containers/1.18/html/getting_started_guide/using-codeready-containers_gsg
+
+
+CodeReady Containers (crc)
+local, all-in-one OpenShift 4 cluster
+- not for production
+- only 1 cluster
+
+crc setup
+
+crc start
+
+Create New Project
+oc new-project test-project
+
+oc login -u developer -p developer https://api.crc.testing:6443
+
+Deploy Application
+- specify repo, branch, directory
+oc new-app --name test-project https://github.com/LilySu/OpenShift_Practice#main --context-dir RedHat_OpenShift_Pluralsight/version
+
+oc get pods
+
+pods connects to other pods through "services"
+oc get services
+
+the service resource is internal to OpenShift
+if you want to connect it to the external, you have to expose it
+Expose service and service name:
+oc expose service test-project
+
+oc get route
+
+crc stop
