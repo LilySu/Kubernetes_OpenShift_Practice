@@ -1,0 +1,36 @@
+Masters should be concentrated on locking up the cluster
+
+What makes up the master:
+kube-apiserver
+- gateway to the cluster
+- only master component that anything should be talking to
+ - connects components in the master with outside nodes
+- consumes json/yaml
+
+Cluster Store
+- only persistent component in control plane
+- where config & state of apps get stored
+- based on the etcd distributed nosql database
+- first thing that comes under pressure - performance is critical
+- for large containers and a lot of changes:
+    - best to lock and split out the cluster store bits to their own set of highly available infrastructure
+- one should have recovery and testing
+
+Kube-controller-manager
+- like controller of controllers
+    - Node controller in charge of nodes
+    - Deployments controller in charge of deployments
+    - Endpoint controllers
+    - etc...
+- each controller acts as a reconciliation loop watching over
+changes it is responsible for
+- checks if current state matches desired state
+
+Kube-scheduler
+- watches api server for new work tasks
+- Assigns work to cluser nodes
+    - takes into account:
+        - Affinity
+        - Constraints
+        - Taints
+        - Resources

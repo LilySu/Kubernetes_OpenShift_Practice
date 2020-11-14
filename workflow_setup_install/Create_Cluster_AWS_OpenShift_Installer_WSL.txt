@@ -65,5 +65,9 @@ netstat -ab
 Create Cluster from the 'openshift-install' extracted file
 ./openshift-install create cluster
 
-Wait 30
+Wait 30 min
+
+Removing Cluster from AWS
+./openshift-install destroy cluster \
+--dir=<installation_directory> --log-level=info
 

@@ -1,0 +1,35 @@
+Kubernetes
+1. Standard Package Format - Package in containers
+2. Manifest - Describe what it is
+
+Orchestration - getting multiple components to work seamlessly together
+
+What's in the yaml file:
+- what container to use
+- ports, networks, replicas
+
+Master / Control Plane
+- the brain of K8s
+The master makes a copy of the yaml file and uses the yaml file as instructions
+
+It's best to have multiple masters / multi-master control plane 3 or 5 is ideal
+- odd so that 1 master can be easily elected as the leader
+
+    - if the network goes down between 2 and 2 nodes, no one node is sure that
+    they can communicate with the majority called split brain.
+
+Followers proxy connections across to the leader.
+If leader goes down, followers elect a new leader.
+
+1 or more linux machines ie bare metal or on cloud are needed to run masters.
+Every master runs a master component
+Every master runs a control plane service
+
+In a hosted Kubernetes platform, masters are hidden from you
+- when your cloud provider runs Kubernetes for you as a service
+- you are given an api endpoint
+- you outsource the kubernetes control plane to your cloud provider
+    - in return you get a production rate cluster with close to zero effort
+
+It's a good practice not to run user or business applications on masters
+
