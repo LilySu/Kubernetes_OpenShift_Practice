@@ -1,0 +1,5 @@
+Kubernetes operates on a declarative model
+- we give the api server a manifest file that describes an end state
+    - what we want our cluster and apps to look like - the desired state
+    - this is not a long list of commands to get to the end state but a description of what things should look like
+- we post the desired state to the api server

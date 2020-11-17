@@ -1,13 +1,21 @@
 # Simple Kubernetes Pod to deploy the app contained in nigelpoulton/getting-started-k8s:1.0
-apiVersion: v1
-kind: Pod
+apiVersion: v1 # the feature is ga and considered stable,
+# before generally available and stable these are the stages
+# alpha ie v1alpha1, v1alpha2, v1beta1, v1beta2, v1, v2
+kind: Pod # in the early days, everything was bundled in a core group
+# newer features are now in api subgroups
+# in the api, apps is a subgroup, batch is a subgroup
+# kind indicates the old way how the core subgroup where pod object definition is in
 metadata:
   name: hello-pod
   labels:
-    app: web
-spec:
+    app: web # key value pairs
+spec: #container step
+  # from here is the container running our app
   containers:
     - name: web-ctr
-      image: nigelpoulton/getting-started-k8s:1.0
+      image: lilysu25/getting-started-k8s:1.0 # by default, it will pull from docker hub unless you have a dns
       ports:
-        - containerPort: 8080
+        - containerPort: 8080 # has to match what the pod is listening on, got to match
+
+# anything we define in our yaml we need to define in our pod object definition.

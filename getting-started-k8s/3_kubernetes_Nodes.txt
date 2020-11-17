@@ -1,0 +1,40 @@
+Kubelet / Node
+- the main kubernetes agent that runs on every cluster - nodes could be linux or windows as long as a kubelet is installed
+- registers machine as node with cluster as cpu, ram and resources to cluster resource pool scheduler assigns work to node
+    - work on a k8s cluster comes in the form of pods
+        - a pod is 1 or more containers packaged as a single deployable unit
+- constantly watches API server for any new pods assigned to it
+- also keeps a reporting channel back to the server to keep master appraised on state of the pods running any running clusters
+
+Container Runtime
+- does all the heavy lifting for building and starting containers - could be docker, containerd, or another service
+- Can be Docker
+- pluggable with Container Runtime Interface (CRI)
+ - docker, containered, cri-o, datacontainers, gvisor
+
+Kube-proxy
+- like the network brains of the node
+- makes sure every pod gets its own unique ip, 1 ip per pod
+- does lightweight load balancing across all the pods behind a service write
+    - a service write is a way of hiding multiple pods behind a single stable network address like a load balancer
+    - ie the service balances incoming requests across all backend pods
+
+Kubelet
+- main kubernetes agent on every node
+- registered the node with the cluster
+- watches the api server on the master for new work assignments
+- maintains a reporting channel back to the control plane
+
+fyi:
+Some cloud services provide:
+Virtual Kubelet
+- Kubernetes without any nodes
+- run container workloads without spinning vm instances to run workloads on
+- you have a containerized workload and the cloud runs it for you
+- you can forget low-level infrastructure and let the cloud manage the work
+- works from yaml file, pay only for runs, not for empty nodes
+
+
+
+
+
