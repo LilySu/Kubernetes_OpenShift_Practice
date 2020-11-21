@@ -220,6 +220,22 @@ kubectl describe rs web-deploy-6c5887d555
 # rollback to previous version:
 kubectl rollout undo deploy web-deploy --to-revision=1
 
+# Shutting down all
+kubectl get pods
+kubectl get services
+kubectl get rs
+kubectl get node
+
+kubectl delete pod <>
+kubectl delete -f deploy.yml
+kubectl delete -f svc-lb.yml
+kubectl delete -f svc-nodeport.yml
+kubectl delete services <>
+kubectl delete node <>
+
+
+
+
 
 
 
