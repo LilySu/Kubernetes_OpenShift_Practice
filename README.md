@@ -18,3 +18,6 @@
  - run a basic node.js app locally on 1 node, 1 cluster
 
 #### [OpenShift Repo for the Above Courses](https://github.com/redhattraining/do101-apps)
+
+#### Kubernetes: Up and Running: Dive into the Future of Infrastructure 2nd Edition by Brendan Burns  (Author), Joe Beda (Author), Kelsey Hightower 
+- run pods, update pods, get pods, learn about the basis of Kubernetes
