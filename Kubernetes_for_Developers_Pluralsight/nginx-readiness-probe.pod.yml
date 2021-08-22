@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-readiness-probe
+spec:
+  containers:
+  - name: my-nginx
+    image: nginx:alpine
+    args: # Define args for container
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    ports:
+    - containerPort: 80
+    livenessProbe: # define liveness probe
+      exec: # executes action inside container ExecAction
+        command: # Define action/command to execute
+          - cat
+          - /tmp/healthy
+      # HTTPGetAction performing a GET request against a container
+      httpGet: # check /index.html on port 80
+        path: /index.html
+        port: 80
+      initialDelaySeconds: 15 # wait 15 seconds
+      timeoutSeconds: 2 # Timeout after 2 seconds
+      periodSeconds: 5 # Check every 5 seconds
+      failureThreshold: 1 # Allow 1 failure before failing Pod
+    readinessProbe: # Define readiness probe
+      httpGet:
+        path: /index.html # Check /index.html on port 80
+        port: 80
+      initialDelaySeconds: 3 # Wait 2 seconds
+      periodSeconds: 5
+      failureThreshold: 1
+
+
+
+# kubectl apply -f nginx-readiness-probe.pod.yml
+
+# kubectl describe pod my-nginx
+
+# kubectl exec my-nginx -it sh
+
+# delete something
+
+# kubectl exec my-nginx -it sh
+
+# observe container spinning back up
+
+
+
+#         Volumes:        {{Name: "kube-api-access-29kwk", VolumeSource: {Projected: &{Sources: {{ServiceAccountToken: &{ExpirationSeconds: 3607, Path: "token"}}, {ConfigMap: &{LocalObjectReference: {Name: "kube-root-ca.crt"}, Items: {{Key: "ca.crt", Path: "ca.crt"}}}}, {DownwardAPI: &{Items: {{Path: "namespace", FieldRef: &{APIVersion: "v1", FieldPath: "metadata.namespace"}}}}}}, DefaultMode: &420}}}},
+#         InitContainers: nil,
+#         Containers: []core.Container{
+#                 {
+#                         Name:       "my-nginx",
+#                         Image:      "nginx:alpine",
+#                         Command:    nil,
+# -                       Args:       []string{"/bin/sh", "-c", "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"},
+# +                       Args:       nil,
+#                         WorkingDir: "",
+#                         Ports:      {{ContainerPort: 80, Protocol: "TCP"}},
+#                         ... // 3 identical fields
+#                         VolumeMounts:  {{Name: "kube-api-access-29kwk", ReadOnly: true, MountPath: "/var/run/secrets/kubernetes.io/serviceaccount"}},
+#                         VolumeDevices: nil,
+# -                       LivenessProbe: &core.Probe{
+# -                               Handler: core.Handler{
+# -                                       Exec:    &core.ExecAction{Command: []string{...}},
+# -                                       HTTPGet: &core.HTTPGetAction{Path: "/index.html", Port: intstr.IntOrString{...}, Scheme: "HTTP"},
+# -                               },
+# -                               InitialDelaySeconds: 15,
+# -                               TimeoutSeconds:      2,
+# -                               PeriodSeconds:       5,
+# -                               SuccessThreshold:    1,
+# -                               FailureThreshold:    1,
+# -                       },
+# +                       LivenessProbe: nil,
+# -                       ReadinessProbe: &core.Probe{
+# -                               Handler: core.Handler{
+# -                                       HTTPGet: &core.HTTPGetAction{Path: "/index.html", Port: intstr.IntOrString{...}, Scheme: "HTTP"},
+# -                               },
+# -                               InitialDelaySeconds: 3,
+# -                               TimeoutSeconds:      1,
+# -                               PeriodSeconds:       5,
+# -                               SuccessThreshold:    1,
+# -                               FailureThreshold:    1,
+# -                       },
+# +                       ReadinessProbe: nil,
+#                         StartupProbe:   nil,
+#                         Lifecycle:      nil,
+#                         ... // 7 identical fields
+#                 },
+#         },
+#         EphemeralContainers: nil,
+#         RestartPolicy:       "Always",
+#         ... // 25 identical fields
+#   }
