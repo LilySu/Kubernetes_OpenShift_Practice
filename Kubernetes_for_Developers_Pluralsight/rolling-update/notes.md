@@ -39,3 +39,22 @@ kubectl rollout status deployment my-nginx
 ```
 deployment "my-nginx" successfully rolled out
 ```
+
+```
+kubectl rollout history deployment my-nginx
+deployment.apps/my-nginx
+REVISION  CHANGE-CAUSE
+1         <none>
+3         <none>
+4         kubectl.exe apply --filename=./ --record=true
+```
+
+
+```
+kubectl rollout undo deployment my-nginx
+deployment.apps/my-nginx rolled back
+```
+
+```
+kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all
+```
