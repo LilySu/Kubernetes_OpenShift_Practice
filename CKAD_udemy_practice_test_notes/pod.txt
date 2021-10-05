@@ -1,0 +1,2 @@
+create a new pod with the nginx image
+kubectl run nginx --image=nginx
