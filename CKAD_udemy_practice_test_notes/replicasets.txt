@@ -1,0 +1,27 @@
+how many replicasets are there?
+kubectl get replicasets
+
+what is the image used by the replicaset?
+kubectl edit replicasets/new-replica-set
+
+what is the reason why the pods are not running?
+kubectl describe pods
+
+delete any one of the 4 pods
+kubectl delete pod new-replica-set-4gvmd
+
+ls
+nano replicaset-definition-1.yaml
+kubectl apply -f /root/replicaset-definition-1.yaml
+
+matchlabels nginx with the nginx image in the replicaset
+
+kubectl delete replicasets replicaset-1
+
+kubectl edit replicaset/new-replica-set
+for replicaset to take into effect, delete pods
+kubectl get pods
+kubectl delete pod <pod name>
+
+
+kubectl scale --replicas=5 replicaset replicaset-2

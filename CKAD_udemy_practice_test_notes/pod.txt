@@ -1,2 +1,6 @@
 create a new pod with the nginx image
 kubectl run nginx --image=nginx
+
+
+change the image of pod from redis123 to redis
+kubectl edit pod/redis
