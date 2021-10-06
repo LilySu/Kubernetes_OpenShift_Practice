@@ -1,0 +1,24 @@
+kubectl get namespaces
+
+kubectl get pods --namespace=research
+
+kubectl -n research get pods --no-headers
+
+kubectl run redis --image=redis --dry-run=client -o yaml > pod.yaml
+
+kubectl -n finance get pod redis
+
+kubectl get pods --all-namespaces | grep blue
+
+validate that service is in the dev space
+kubectl -n dev get svc
+
+kubectl config set-context $(kubectl config current-context) 
+--namespace=marketing
+
+to access service in a different namespace, provide name and namespace
+
+
+kubectl run nginx --image=nginx
+
+kubectl run nginx --image=nginx --dry-run=client -o yaml
