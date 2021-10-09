@@ -1,0 +1,13 @@
+kubectl run webapp-green --image=kodekloud/webapp-color --dry-run=client 
+-o yaml > lily.yaml
+
+In Docker:
+Entrypoint defines the first program that will be run within the 
+container. It is meant to be a first command. The user may enter a 
+parameter such as number of seconds in the command line. 
+CMD is meant to go after entrypoint to define a default value if a 
+parameter is not stated in the command line. CMD values will append 
+Entrypoint. 
+
+commands in kubernetes overrides ENTRYPOINT in docker
+args in kubernetes overries CMD in docker

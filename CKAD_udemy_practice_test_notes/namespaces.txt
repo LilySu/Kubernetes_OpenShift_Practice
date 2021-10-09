@@ -22,3 +22,5 @@ to access service in a different namespace, provide name and namespace
 kubectl run nginx --image=nginx
 
 kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+kubectl create namespace dev-ns
