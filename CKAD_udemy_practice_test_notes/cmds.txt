@@ -11,3 +11,7 @@ Entrypoint.
 
 commands in kubernetes overrides ENTRYPOINT in docker
 args in kubernetes overries CMD in docker
+
+
+output an existing, running pod into a yaml formal to inspect:
+kubectl get pod webapp-color -o yaml > webappc.yaml

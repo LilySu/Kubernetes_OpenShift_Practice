@@ -1,0 +1,10 @@
+
+spec:
+  containers:
+  - command:
+    - sleep
+    - "4800"
+    image: ubuntu
+    securityContext:
+      capabilities:
+        add:["SYS_TIME"]

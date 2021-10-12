@@ -1,0 +1,17 @@
+    readinessProbe:
+      httpGet:
+        path: /ready
+        port:8080
+
+    readinessProbe:
+      failureThreshold: 3
+      httpGet:
+        path: /live 
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 80
+      periodSeconds: 1
+      successThreshold: 1
+      timeoutSeconds: 1
+
+

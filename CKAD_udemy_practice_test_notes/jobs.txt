@@ -1,0 +1,14 @@
+kubectl logs throw-dirce-pod
+
+kubectl create job throw-dice-job --image kodecloud/throw-dice --dry-run=client -o yaml > job.yaml
+
+kubectl get job
+
+attemps it took for job to succeed
+kubectl describe jobs.batch throw-dice-job
+look at pod statuses
+
+let job run as many as needed for 3 completions:
+  backoffLimit: 6
+  completions: 3
+  parallelism: 1

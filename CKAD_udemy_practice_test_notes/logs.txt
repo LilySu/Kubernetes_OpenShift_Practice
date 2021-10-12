@@ -1,0 +1,11 @@
+kubectl logs -f webapp-1  
+
+kubectl logs -f <pod name> <container name>
+
+git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+
+kubectl create -f kubernetes-metrics-server/.
+
+kubectl top node
+
+kubectl top pod

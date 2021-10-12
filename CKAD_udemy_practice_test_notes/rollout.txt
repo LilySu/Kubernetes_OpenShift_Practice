@@ -1,0 +1,27 @@
+kubectl rollout history deployment/frontend
+
+kubectl rollout status deployment/frontend
+
+kubectl apply -f frontend.yaml
+
+--record shows when running kubectl rollout history commands run in each step of deployment
+kubectl create -f deployment-definition.yaml --record
+
+  selector:
+    matchLabels:
+      name: webapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+
+  selector:
+    matchLabels:
+      name: webapp
+  strategy:
+    type: Recreate 
+
+check specific revisions:
+kubectl rollout history deployment nginx --revision=1
+
+kubectl describe deployments. nginx | grep -i image:kubectl rollout undo deployment nginx

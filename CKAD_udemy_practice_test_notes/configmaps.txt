@@ -1,0 +1,14 @@
+kubectl get ConfigMap db-config -o yaml > db-config.yaml
+
+
+--from-literal= allows you to specify key-value pairs in the commandline 
+
+kubectl create configmap webapp-config-map 
+--from-literal=APP_COLOR=darkblue
+
+
+In Pod yaml:
+
+  envFrom:
+    - configMapRef:
+        name: webapp-config-map

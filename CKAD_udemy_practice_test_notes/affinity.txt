@@ -1,0 +1,12 @@
+kubectl get nodes node01 --show-labels
+
+apply label to node
+
+kubectl label nodes node01 color=blue
+
+kubectl create deployment blue --image=nginx 
+
+kubectl scale deployment blue --replicas=3
+
+Which nodes are the pods placed on now?
+kubectl get pods -o wide | grep blue

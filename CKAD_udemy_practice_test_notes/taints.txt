@@ -1,0 +1,41 @@
+kubectl describe nodes node01 | grep -i taint
+
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+
+  tolerations:
+    key: "app"
+    operator: "Equal"
+    value: "mortein"
+    effect: NoSchedule
+
+create pod definition file
+kubectl run bee --image=nginx --restart=Never --dry-run=client -o yaml > 
+bee.yaml
+
+look at all options for toleration
+kubectl explain pod --recursive | less
+
+print 5 lines below toleration
+kubectl explain pod --recursive | grep -A5 tolerations 
+
+paste yaml in our pod definition
+
+  tolerations:
+    - effect: NoSchedule
+      key: spray
+      operator: "Equal"
+      value: mortein
+
+
+kubectl describe nodes controlplane | grep -i taint
+
+
+remove the taint on controlplane (copy and paste taint details from 
+previous output and add a minus sign):
+kubectl taint node controlplane 
+node-role.kubernetes.io/master:NoSchedule-
+
+
+
+
