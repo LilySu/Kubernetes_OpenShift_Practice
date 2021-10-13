@@ -1,0 +1,50 @@
+kubectl get namespace
+
+switch namespaces:
+kubectl config set-context --current --namespace=ingress-space
+
+Which namespace are the applications deployed in?
+
+kubectl get deployments.apps --all-namespaces
+
+Which namespace is the ingress resource deployed in?
+kubectl get ingress --all-namespaces
+
+What backend is the /wear path on the Ingress configured with?
+kubectl -n app-space describe ingress ingress-wear-watch
+
+kubectl config set-context --current --namespace=app-space
+
+kubectl get ingress -o yaml > ingress.yaml
+
+kubectl -n app-space delete ingress ingress-wear-watch
+
+kubectl get deployments.apps --all-namespaces
+
+kubectl -n critical-space delete ingress ingress-critical
+
+kubectl -n critical-space get all -o wide
+
+create a new namespace
+kubectl create ns ingress-space
+
+Create a ConfigMap object in the ingress-space:
+kubectl create cm nginx-configuration -n ingress-space
+
+Create a ServiceAccount in the ingress-space namespace.
+kubectl create sa ingress-serviceaccount -n ingress-space
+
+get roles
+kubectl -n ingress-space get roles.rbac.authorization.k8s.io
+
+get role bindings
+kubectl -n ingress-space get rolebindings.rbac.authorization.k8s.io
+
+kubectl -n ingress-space expose deployment ingress-controller --name 
+ingress --port 80 --target-port 80 --type NodePort --dry-run=client -o 
+yaml > ingress-svc.yaml
+
+kubectl -n ingress-space get svc
+
+
+

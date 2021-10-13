@@ -1,0 +1,33 @@
+kubectl get all --all-namespaces -o wide
+
+exec container and open log file:
+kubectl exec webapp -- cat /log/app.log
+
+PV:
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-log
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /pv/log
+
+PVC:
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: claim-log-1
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 50Mi
+
+
+kubectl get pvc

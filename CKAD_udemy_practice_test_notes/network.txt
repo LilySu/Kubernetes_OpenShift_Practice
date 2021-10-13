@@ -1,0 +1,36 @@
+How many network policies do you see in the environment?
+kubectl get netpol
+
+kubectl describe netpol payroll-policy
+
+  Allowing ingress traffic:
+    To Port: 8080/TCP
+    From:
+      PodSelector: name=internal
+The above means traffic from internal to payroll are allowed
+
+Internal pod can access Payroll, which is an external pod on 8080. 
+
+  spec:
+    egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            name: payroll
+      ports:
+      - port: 8080
+        protocol: TCP
+    - to:
+      - podSelector:
+          matchLabels:
+            name: mysql
+      - podSelector:
+          matchLabels:
+            name: payroll
+      ports:
+      - port: 3306
+    podSelector:
+      matchLabels:
+        name: mysql
+    policyTypes:
+    - Egress

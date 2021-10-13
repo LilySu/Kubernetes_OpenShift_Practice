@@ -7,8 +7,38 @@ kubectl get job
 attemps it took for job to succeed
 kubectl describe jobs.batch throw-dice-job
 look at pod statuses
+Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+
+attempt to run job:
+kubectl get job
 
 let job run as many as needed for 3 completions:
-  backoffLimit: 6
+spec:
   completions: 3
-  parallelism: 1
+  parallelism: 3
+  template:
+    spec:
+      containers:
+      - name: throw-dice
+
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: throw-dice-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: throw-dice
+        image: kodekloud/throw-dice
+      restartPolicy: OnFailure
+
+
+    spec:
+      completions: 3
+      containers:
+      - name: throw-dice
+        image: kodekloud/throw-dice
+      restartPolicy: OnFailure
+  backoffLimit: 25
