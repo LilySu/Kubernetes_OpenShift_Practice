@@ -1,0 +1,29 @@
+dynamic provisioning of volumes - define a provisioner that can 
+automatically provision storage and attach 
+that to pods for cloud services like gcp
+
+kubectl get sc
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+  storageClassName: local-storage
+
+
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-g4dpg
+      readOnly: true
+    - mountPath: /var/www/html
+      name: local-pvc
+  volumes:
+  - name: local-pvc
+    persistentVolumeClaim:
+      claimName: local-pvc
