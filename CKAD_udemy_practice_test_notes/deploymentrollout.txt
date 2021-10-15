@@ -1,0 +1,4 @@
+kubectl rollout history deployment.v1.apps/api-new-c32 
+--namespace=neptune
+
+kubectl describe deployment.v1.apps/api-new-c32 --namespace=neptune

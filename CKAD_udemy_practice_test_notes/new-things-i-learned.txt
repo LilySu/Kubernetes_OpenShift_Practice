@@ -1,0 +1,95 @@
+batch add labels by label:
+k -n sun label pod -l type=runner protected=true
+
+k -n sun get pod --show-labels
+
+k -n sun annotate pod -l protected=true protected="do not delete this 
+pod"
+
+
+Team Neptune needs 3 Pods of image httpd:2.4-alpine, create a Deployment 
+named neptune-10ab for this. The containers should be named 
+neptune-pod-10ab. Each container should have a memory request of 20Mi 
+and a memory limit of 50Mi.
+
+Team Neptune has its own ServiceAccount neptune-sa-v2 under which the 
+Pods should run. The Deployment should be in Namespace neptune.
+
+k -n neptune create deploy neptune-10ab --image=httpd:2.4-alpine $do > 
+21.yaml
+
+k run tmp --image=busybox $do --requests=memory=20Mi 
+--limits=memory=50Mi
+
+In Namespace venus you'll find two Deployments named api and frontend. 
+Both Deployments are exposed inside the cluster using Services. Create a 
+NetworkPolicy named np1 which restricts outgoing tcp connections from 
+Deployment frontend and only allows those going to Deployment api. Make 
+sure the NetworkPolicy still allows outgoing traffic on UDP/TCP ports 53 
+for DNS resolution.
+
+Test using: wget www.google.com and wget api:2222 from a Pod of 
+Deployment frontend.
+
+k -n venus exec <service name> -- wget -O- wwww.google.de
+
+
+k -n venus exec frontend-789cbdc677-c9v8h -- wget -O- api:2222 
+
+
+Team Neptune needs a Job template located at /opt/course/3/job.yaml. 
+This Job should run image busybox:1.31.0 and execute sleep 2 && echo 
+done. It should be in namespace neptune, run a total of 3 times and 
+should execute 2 runs in parallel.
+
+Start the Job and check its history. Each pod created by the Job should 
+have the label id: awesome-job. The job should be named neb-new-job and 
+the container neb-new-job-container.
+
+k -n neptune create job neb-new-job --image=<image> $do > job.yaml -- sh 
+-c "sleep 2 && echo done"
+
+helm -n <namespace name> uninstall
+
+helm repo l list
+
+helm repo update
+
+helm search repo nginx
+
+helm -n mercury upgrade <app> <name>
+
+install a new release
+
+helm show values <release>
+
+helm -n  mercury install <app> <release> --set replicaCount=2
+
+helm -n mercury ls -a
+
+helm -n mercury uninstall internal-issue-daniel
+above because of a pending status
+
+k -n neptune get sa <service account> -o yaml | grep secret -A 2
+
+k -n neptune get secret <secret token> -o yaml
+
+
+k -n neptune describe secret <token>
+
+copy everything under the token up to ca.crt
+vim <path>
+
+k run pod6 --image=<image> $do --command -- sh -c "command> > 6.yaml
+
+k-n neptune get deploy,pod | grep <app name>
+
+k -n neptune describe pod <pod> | grep -i error
+
+k -n neptune describe pod <pod> | grep -i image
+
+k -n neptune rollout undo deploy <dep>
+
+k -n neptune get deploy <dep>www																																																																																																																																																																																																																														 
+
+
